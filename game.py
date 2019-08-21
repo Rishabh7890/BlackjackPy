@@ -15,7 +15,6 @@ class Card:
     self.rank = rank
 
   def __str__(self):
-
     return f'{self.rank} of {self.suit}'
 
 # create a deck class to hold our 52 card objects in a list
@@ -46,11 +45,12 @@ class Deck:
   def deal(self):
     # grab the deck attr of the deck class and pop off last item on the list to save it to single_card
     single_card = self.deck.pop()
-    # return the single popped off card
+    # return the single popped off card as card to deal
     return single_card
 
 # test to see if Card and Deck classes work
 test_deck = Deck()
+test_deck.shuffle()
 print(test_deck)
 
 
