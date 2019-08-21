@@ -3,6 +3,7 @@ import random
 # set up global variables
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven','Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
+# values will be a dictionary so we can pass in rank and get the numerical value of it. Important for face cards and ace
 values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8, 'Nine': 9, 'Ten': 10, 'Jack': 10, 'Queen': 10, 'King': 10, 'Ace': 11}
 # declare boolean value to control while loops for game
 playing = True
@@ -49,9 +50,73 @@ class Deck:
     return single_card
 
 # test to see if Card and Deck classes work
-test_deck = Deck()
-test_deck.shuffle()
-print(test_deck)
+# test_deck = Deck()
+# test_deck.shuffle()
+# print(test_deck)
+
+# Hand class which is basically representation of player, to hold Card objects dealt from Deck class, and also calcualte the value of those cards using above global dictionary
+# also adjusts value for Aces when appropriate
+class Hand:
+  def __init__(self):
+    # start with empty list as we did in Deck class
+    self.cards = []
+    # start with 0 value of the hand
+    self.value = 0
+    # add attribute to keep track of aces
+    self.aces = 0
+
+  # method for adding a card. 'card' param is actually from Deck.deal() which is a single card obj
+  def add_card(self,card):
+    # grab empty list from __init__ method and append card to it
+    self.cards.append(card)
+    # since the card from Deck.deal is going to have a rank, we can grab that rank for value's dictionary as the key
+    self.value += values[card.rank]
+
+    # track aces
+    if card.rank == 'Ace':
+      self.aces += 1
+
+  # method to adjust the value of aces
+  def adjust_for_ace(self):
+    # first check to see if the value is over 21. If it is we will not want to adjust value of ace to 1
+    # IF total value is over 21 and We still have an ace left, change that value to be 1 instead of 11
+    while self.value > 21 and self.aces:
+      # change value from 11 to 1 by sub 10
+      self.value -= 10
+      # subtract an ace
+      self.aces -= 1
+
+
+# test for Hand class
+# test_deck = Deck()
+# test_deck.shuffle()
+# # create test player
+# test_player = Hand()
+# # deal one card from deck. Card(suit,rank)
+# pulled_card = test_deck.deal()
+# print(pulled_card)
+# test_player.add_card(pulled_card)
+# print(test_player.value)
+
+# Chips class to keep track of a player's chips, bets and ongoing winnings
+class Chips:
+  # total=100 is going to be default amt of chips players start with unless something different is passed
+  def __init__(self,total=100):
+    self.total = total
+    self.bet = 0 
+
+  def win_bet(self):
+    self.total += self.bet
+
+  def lose_bet(self):
+    self.total -= self.bet
+
+
+
+
+
+
+
 
 
 
