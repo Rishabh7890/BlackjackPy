@@ -111,6 +111,95 @@ class Chips:
   def lose_bet(self):
     self.total -= self.bet
 
+# functions for main game 
+
+# function for taking bets. Take in chips from class above which have total and bet attrs
+def take_bet(chips):
+  while True:
+    try:
+      chips.bet = int(input("How many chips would you like to bet? "))
+    except:
+      print("Sorry, please provide an integer.")
+    else:
+      if chips.bet > chips.total:
+        print(f"Sorry, you don't have enough chips to bet that much. You have {chips.total} chips.")
+      else:
+        # if an integer was passed and it is less than total, we can break out of While True loop
+        break
+
+# function for taking hits. Takes in the deck and a player's hand to add to
+# Either player can take hits until they bust
+def hit(deck,hand):
+  # assign popped card from Deck.deal() to single_card
+  single_card = deck.deal()
+  # add that card to the hand
+  hand.add_card(single_card)
+  # call method to check if we need to adjust ace value
+  hand.adjust_for_ace()
+
+  # function to ask player if they would like to hit or stand
+def hit_or_stand(deck,hand):
+  # set global variable to control upcoming while loop
+  global playing
+
+  while True:
+    x = input("Hit or Stand? Enter H/S ")
+
+    if x[0].lower() == 'h':
+      # use hit() from above to hit
+      hit(deck,hand)
+    elif x[0].lower() == 's':
+      print("Player Stands... Dealer's turn")
+      playing = False
+    else:
+      print("Incorrect input... Please enter H or S")
+      # use continue to go back to top of loop for another input
+      continue
+    # if none of these gets triggered we can break out of loop
+    break
+
+# functions to display cards
+def show_some(player,dealer):
+  print("DEALER'S HAND: ")
+  print('One card is hidden')
+  print(dealer.cards[1])
+  print("\n")
+  print("PLAYER'S HAND: ")
+  for card in player.cards:
+    print(card)
+
+def show_all(player,dealer):
+  print("DEALER'S HAND: ")
+  for card in dealer.cards:
+    print(card)
+  print("\n")
+  print("PLAYER'S HAND: ")
+  for card in player.cards:
+    print(card)
+
+# functions to handle end of game scenarios. Note player is represented by hand object
+def player_busts(player,dealer,chips):
+  print("BUST PLAYER!")
+  # call lose_bet method from chips class to adjust chips
+  chips.lose_bet()
+
+def player_wins(player,dealer,chips):
+  print("PLAYER WINS!")
+  # call win_bet method from chips class to adjust chips
+  chips.win_bet()
+
+def dealer_busts(player,dealer,chips):
+  print("DEALER BUSTS! PLAYER WINS!")
+  chips.win_bet()
+
+def dealer_wins(player,dealer,chips):
+  print("DeALER WINS!")
+  chips.lose_bet()
+
+# note push doesn't take in chips because push means both dealer and player got 21 so nothing happens with chips
+def push(player,dealer,chips):
+  print("Player and Dealer tie! PUSH...")
+
 
 
 
