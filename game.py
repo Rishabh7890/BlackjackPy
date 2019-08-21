@@ -178,26 +178,26 @@ def show_all(player,dealer):
     print(card)
 
 # functions to handle end of game scenarios. Note player is represented by hand object
-def player_busts(player,dealer,chips):
+def player_busts(chips):
   print("BUST PLAYER!")
   # call lose_bet method from chips class to adjust chips
   chips.lose_bet()
 
-def player_wins(player,dealer,chips):
+def player_wins(chips):
   print("PLAYER WINS!")
   # call win_bet method from chips class to adjust chips
   chips.win_bet()
 
-def dealer_busts(player,dealer,chips):
+def dealer_busts(chips):
   print("DEALER BUSTS! PLAYER WINS!")
   chips.win_bet()
 
-def dealer_wins(player,dealer,chips):
+def dealer_wins(chips):
   print("DeALER WINS!")
   chips.lose_bet()
 
 # note push doesn't take in chips because push means both dealer and player got 21 so nothing happens with chips
-def push(player,dealer,chips):
+def push():
   print("Player and Dealer tie! PUSH...")
 
 
