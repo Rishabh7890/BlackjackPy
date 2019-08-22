@@ -178,26 +178,26 @@ def show_all(player,dealer):
     print(card)
 
 # functions to handle end of game scenarios. Note player is represented by hand object
-def player_busts(player,dealer,chips):
+def player_busts(chips):
   print("BUST PLAYER!")
   # call lose_bet method from chips class to adjust chips
   chips.lose_bet()
 
-def player_wins(player,dealer,chips):
+def player_wins(chips):
   print("PLAYER WINS!")
   # call win_bet method from chips class to adjust chips
   chips.win_bet()
 
-def dealer_busts(player,dealer,chips):
+def dealer_busts(chips):
   print("DEALER BUSTS! PLAYER WINS!")
   chips.win_bet()
 
-def dealer_wins(player,dealer,chips):
+def dealer_wins(chips):
   print("DEALER WINS!")
   chips.lose_bet()
 
 # note push doesn't take in chips because push means both dealer and player got 21 so nothing happens with chips
-def push(player,dealer):
+def push():
   print("Player and Dealer tie! PUSH...")
 
 # NOW TO PUT IT ALL TOGETHER 
@@ -237,7 +237,7 @@ while True:
 
     # if player's hand exceeds 21, run player_busts() and break out of loop
     if player_hand.value > 21:
-      player_busts(player_hand,dealer_hand,player_chips)
+      player_busts(player_chips)
 
       break
 
@@ -252,13 +252,13 @@ while True:
 
       # run different winning situations
       if dealer_hand.value > 21:
-        dealer_busts(player_hand,dealer_hand,player_chips)
+        dealer_busts(player_chips)
       elif dealer_hand.value > player_hand.value:
-        dealer_wins(player_hand,dealer_hand,player_chips)
+        dealer_wins(player_chips)
       elif dealer_hand.value < player_hand.value:
-        player_wins(player_hand,dealer_hand,player_chips)
+        player_wins(player_chips)
       else:
-        push(player_hand,dealer_hand)
+        push()
 
   # inform player of their total chips
   print("\n Player total chips are at: {}".format(player_chips.total))
