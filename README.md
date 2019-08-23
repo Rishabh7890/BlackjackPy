@@ -16,3 +16,11 @@
 ## Screenshot of game run
 
 ![screenshot](public/images/sampleImg.png)
+
+## Upcoming updates
+
+* Currently working to convert the application to a full-fledged web application using Flask or Django.
+
+## Credits
+
+* Rishabh Goel
