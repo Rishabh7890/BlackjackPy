@@ -19,7 +19,7 @@
 
 ## Upcoming updates
 
-* Currently working to convert the application to a full-fledged web application using Flask or Django.
+* Currently working to convert the application to a full-fledged web application using Flask.
 
 ## Credits
 
